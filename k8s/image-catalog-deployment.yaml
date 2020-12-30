@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: image-catalog-deployment
+  name: uporabniki-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: image-catalog
+      app: uporabniki
   template:
     metadata:
       labels:
-        app: image-catalog
+        app: uporabniki
     spec:
       containers:
       - image: sabinca97/novaslika:2
-        name: image-catalog
+        name: uporabniki
         imagePullPolicy: Always
         env:
         - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
@@ -46,7 +46,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: image-catalog
+  name: uporabniki
 spec:
   type: LoadBalancer
   ports:
@@ -54,9 +54,9 @@ spec:
     protocol: TCP
     targetPort: server
   selector:
-    app: image-catalog
+    app: uporabniki
 
 
-#    kubectl create -f image-catalog-deployment.yaml
+#    kubectl create -f uporabniki-deployment.yaml
 #  kubectl get services
 #  kubectl get deployments

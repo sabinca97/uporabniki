@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>image-catalog</artifactId>
+        <artifactId>uporabniki</artifactId>
         <groupId>si.fri.rso.samples</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>image-catalog-api</artifactId>
+    <artifactId>uporabniki-api</artifactId>
 
     <dependencies>
         <dependency>
@@ -20,14 +20,8 @@
             <groupId>com.kumuluz.ee</groupId>
             <artifactId>kumuluzee-servlet-jetty</artifactId>
         </dependency>
-                <dependency>
-                    <artifactId>kumuluzee-config-consul</artifactId>
-                    <groupId>com.kumuluz.ee.config</groupId>
-                </dependency>
-        <dependency>
-            <groupId>com.kumuluz.ee.health</groupId>
-            <artifactId>kumuluzee-health</artifactId>
-        </dependency>
+
+
         <dependency>
             <groupId>com.kumuluz.ee.config</groupId>
             <artifactId>kumuluzee-config-mp</artifactId>
@@ -51,7 +45,11 @@
 
         <dependency>
             <groupId>si.fri.rso.samples</groupId>
-            <artifactId>image-catalog-services</artifactId>
+            <artifactId>uporabniki-services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>si.fri.rso.samples</groupId>
+            <artifactId>uporabniki-lib</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,5 +1,5 @@
 kumuluzee:
-  name: image-catalog-service
+  name: uporabniki-service
   env:
     name: dev
   version: 1.0.0
@@ -8,34 +8,16 @@ kumuluzee:
     http:
       port: 8080
   datasources:
-    - jndi-name: jdbc/vdjkikowgtbsmb
-      connection-url: jdbc:postgresql://ec2-52-1-95-247.compute-1.amazonaws.com/d8gnrm64ecchtp
-      username: vdjkikowgtbsmb
-      password: 90c2a354319c666def2d0e862c1d558df0a4919d7d4fd4753e95642899343dbc
+    - jndi-name: jdbc/axmsufdwudxpwn
+      connection-url: jdbc:postgresql://ec2-54-208-233-243.compute-1.amazonaws.com/d373nd6ijuq04e
+      username: axmsufdwudxpwn
+      password: 550d2e28f70ccc901a7500c35a50cce651b356d13af4b6862468a80ea257fe9c
       listen_addresses: "*"
       pool:
         max-size: 5
-  health:
-    checks:
-      data-source-health-check:
-        type: liveness
-        jndi-name: jdbc/vdjkikowgtbsmb
 
-  metrics:
-    logstash:
-      enabled: false
-      address: 127.0.0.1
-      port: 5043
-      period-s: 15
-    logs:
-      enabled: false
-      period-s: 30
-      level: INFO
-    web-instrumentation:
-    - name: metricsEndpoint
-      url-pattern: /metrics/*
-    - name: customersEndpoint
-      url-pattern: /v1/images/*
+
+
   cors-filter:
     annotations:
       my-resource:

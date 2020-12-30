@@ -26,28 +26,28 @@ Status Travic CI-ja :https://travis-ci.com/github/sabinca97/mojRepozitorij
 ### Kubernetes
 - Microsoft Azur "mojRso"
 - splošni ukazi
-   - kreiranje  ```kubectl create -f image-catalog-deployment.yaml```
-   - posodabljanje ```kubectl apply -f image-catalog-deployment.yaml```
+   - kreiranje  ```kubectl create -f uporabniki-deployment.yaml```
+   - posodabljanje ```kubectl apply -f uporabniki-deployment.yaml```
    - tukaj je zapisan external ip za dostop ```kubectl get services```
    - pridobim pode ```kubectl get pods```
    - pridobim deployments ```kubectl get deployments```
    - pridobim pode ```kubectl get pods```
 - brisanje 
-   - izbris deploymenta  ```kubectl delete deploy/image-catalog-deployment```
-   - izbris servica  ```kubectl delete service/image-catalog```
+   - izbris deploymenta  ```kubectl delete deploy/uporabniki-deployment```
+   - izbris servica  ```kubectl delete service/uporabniki```
    
 - za posodobitev
     - naprej odstranim imagePullAllways
-    - posodobitev  ```kubectl apply -f image-catalog-deployment.yaml```
+    - posodobitev  ```kubectl apply -f uporabniki-deployment.yaml```
     - dam nazaj imagePullAllways
-    - posodobitev  ```kubectl apply -f image-catalog-deployment.yaml```
+    - posodobitev  ```kubectl apply -f uporabniki-deployment.yaml```
     
 - aktiven k8s url
     - ```http://40.76.163.134:8080/v1/images```
     
 ### Consul
  - dostop na  ```127.0.0.1:8500```
- - ce je tukaj false, potem gre prek, ce dam na true jo blokira```http://127.0.0.1:8500/ui/dc1/kv/environments/dev/services/image-catalog-service/1.0.0/config/rest-properties/maintenance-mode/edit```
+ - ce je tukaj false, potem gre prek, ce dam na true jo blokira```http://127.0.0.1:8500/ui/dc1/kv/environments/dev/services/uporabniki-service/1.0.0/config/rest-properties/maintenance-mode/edit```
  
     
 ### Health Check
