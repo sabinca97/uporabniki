@@ -4,9 +4,9 @@ kumuluzee:
     name: dev
   version: 1.0.0
   server:
-    base-url: http://localhost:8080
+    base-url: http://localhost:8081
     http:
-      port: 8080
+      port: 8081
   datasources:
     - jndi-name: jdbc/axmsufdwudxpwn
       connection-url: jdbc:postgresql://ec2-54-208-233-243.compute-1.amazonaws.com/d373nd6ijuq04e

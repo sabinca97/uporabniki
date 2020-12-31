@@ -5,6 +5,11 @@ public class UporabnikMetadata {
     private String ime;
     private String priimek;
     private String email;
+    private Integer stObjav;
+
+    public Integer getStObjav() { return stObjav; }
+
+    public void setStObjav(Integer stObjav) { this.stObjav = stObjav; }
 
     public Integer getId() {
         return id;

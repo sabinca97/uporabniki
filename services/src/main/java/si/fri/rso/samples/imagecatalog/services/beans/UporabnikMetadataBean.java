@@ -2,15 +2,27 @@ package si.fri.rso.samples.imagecatalog.services.beans;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import si.fri.rso.samples.imagecatalog.lib.UporabnikMetadata;
 import si.fri.rso.samples.imagecatalog.models.converters.UporabnikiMetadataConverter;
 import si.fri.rso.samples.imagecatalog.models.entities.UporabnikMetadataEntity;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.InternalServerErrorException;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.ProcessingException;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.UriInfo;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -24,6 +36,15 @@ public class UporabnikMetadataBean {
     @Inject
     private EntityManager em;
 
+    private Client httpClient;
+    private String baseUrlImages;
+
+    @PostConstruct
+    private void init() {
+        httpClient = ClientBuilder.newClient();
+        baseUrlImages = "http://localhost:8080"; // only for demonstration
+    }
+
     public List<UporabnikMetadata> getImageMetadata() {
 
         TypedQuery<UporabnikMetadataEntity> query = em.createNamedQuery(
@@ -33,6 +54,20 @@ public class UporabnikMetadataBean {
 
         return resultList.stream().map(UporabnikiMetadataConverter::toDto).collect(Collectors.toList());
 
+    }
+
+
+    public UporabnikMetadata getUporabnikiMetadata(Integer id) {
+
+        UporabnikMetadataEntity uporabnikMetadataEntity = em.find(UporabnikMetadataEntity.class, id);
+
+        if (uporabnikMetadataEntity == null) {
+            throw new NotFoundException();
+        }
+
+        UporabnikMetadata uporabnikMetadata = UporabnikiMetadataConverter.toDto(uporabnikMetadataEntity);
+
+        return uporabnikMetadata;
     }
 
     public List<UporabnikMetadata> getUporabnikMetadataFilter(UriInfo uriInfo) {
@@ -66,6 +101,27 @@ public class UporabnikMetadataBean {
         return UporabnikiMetadataConverter.toDto(uporabnikMetadataEntity);
     }
 
+
+
+    public Integer getImagesForUser(Integer userId) {
+
+        log.info("Calling comments service: getting comment count.");
+
+        try {
+            return httpClient
+                    .target(baseUrlImages + "/v1/images/byUserCount/" +String.valueOf(userId) )
+                    .request().get(new GenericType<Integer>() {
+                    });
+        }
+        catch (WebApplicationException | ProcessingException e) {
+            log.severe(e.getMessage());
+            throw new InternalServerErrorException(e);
+        }
+    }
+
+    public Integer getCommentCountFallback(Integer imageId) {
+        return null;
+    }
 
     private void beginTx() {
         if (!em.getTransaction().isActive()) {
