@@ -119,9 +119,29 @@ public class UporabnikMetadataBean {
         }
     }
 
-    public Integer getCommentCountFallback(Integer imageId) {
-        return null;
+
+
+    public boolean deleteUporabnikMetadata(Integer id) {
+
+        UporabnikMetadataEntity uporabnikMetadata = em.find(UporabnikMetadataEntity.class, id);
+
+        if (uporabnikMetadata != null) {
+            try {
+                beginTx();
+                em.remove(uporabnikMetadata);
+                commitTx();
+            }
+            catch (Exception e) {
+                rollbackTx();
+            }
+        }
+        else {
+            return false;
+        }
+
+        return true;
     }
+
 
     private void beginTx() {
         if (!em.getTransaction().isActive()) {

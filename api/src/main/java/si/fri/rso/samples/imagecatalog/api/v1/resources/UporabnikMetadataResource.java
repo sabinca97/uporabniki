@@ -5,6 +5,7 @@ import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
 import org.eclipse.microprofile.faulttolerance.Fallback;
 import org.eclipse.microprofile.faulttolerance.Timeout;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import si.fri.rso.samples.imagecatalog.lib.UporabnikMetadata;
 import si.fri.rso.samples.imagecatalog.services.beans.UporabnikMetadataBean;
 
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
 @Path("/uporabniki")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@CrossOrigin(allowOrigin = "*")
+@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
 public class UporabnikMetadataResource {
 
     private Logger log = Logger.getLogger(UporabnikMetadataResource.class.getName());
@@ -42,6 +43,11 @@ public class UporabnikMetadataResource {
 
         List<UporabnikMetadata> uporabnikMetadata = uporabnikMetadataBean.getUporabnikMetadataFilter(uriInfo);
 
+        //dodam st objav, ki se klice iz mikrostoritve za slike
+        uporabnikMetadata.forEach((uporabnik) -> {
+            Integer stObjav = uporabnikMetadataBean.getImagesForUser(uporabnik.getId());
+            uporabnik.setStObjav(stObjav);
+        });
         return Response.status(Response.Status.OK).entity(uporabnikMetadata).build();
     }
 
@@ -70,6 +76,21 @@ public class UporabnikMetadataResource {
 
         return Response.status(Response.Status.OK).entity(uporabnikMetadata).build();
 
+    }
+
+    @DELETE
+    @Path("{uporabnikId}")
+    public Response deleteImageMetadata(@Parameter(description = "Uporabnik ID.", required = true)
+                                        @PathParam("uporabnikId") Integer uporabnikId) {
+
+        boolean deleted = uporabnikMetadataBean.deleteUporabnikMetadata(uporabnikId);
+
+        if (deleted) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+        else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
 
