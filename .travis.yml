@@ -10,12 +10,12 @@ cache:
   - "$HOME/.m2"
 env:
   global:
-  - DOCKER_IMAGE=sabinca97/novaslika:2
+  - DOCKER_IMAGE=sabinca97/slikaUporabnik:2
   - secure: WomoxRioj91dENSOlExkVhzsYHP6lFop6FqzuUryiX9mKPqAl9EFx8WFqeG1fpVucOEyWDQnJJluQl9NhY7B9QTJKgEzWOxGYMSLrUei4m+3zqD75OWA+WEAoml9IBEClLRrEN2ipvXnnlo5uGIj4eJ4in1HUDvqaoz9STgQEDV/jfsWMqVzrvFpYAZZcHTseB2lzyJfT/5JbVCnjV0gCQeuvzwSHYuip2SQn3p7k1GAORSyYzs8DDr3vkX/ZWaNKMw2gs3c4YV/hP/Th1vIMglZk5TWAdfox3/NgeqkttbULwUChSMMF6UHVhOpxyJF/SHe8D9+riPxXnNlxCe5d6P4KlSby2Dz+hDBvwfWohi1TU5U3Le6QzJILEmgAlc6nxRF1YM/Rfu21/gtFGS4i4VtJipmGOlR8Ho9BoH91swrF79Zj94L88Yc1xoIDPqjX9YT9oW5NixnMt/scpuDH+2gZsp1jb+GaNmpYqLVO5TnFeKcVptSgGIpTSuCnNZw8E8yZU0kjKChwcVvW4WTQx6+s5naiII2Xzo+XgsliAkQU3Uy43JhW9vtR8xYsECJ3WM1uTvyVfksaKfVWCH5k/CkYk7PwG6Q43RWAeQvYEMy9rIEkjlxuIuXVrOdHqnhxka48hN/6SiB2/l/V4+sRLcz+hCJmaMztCb7zoQsbtw=
   - secure: am1jUF0foYGDaNIC0gNTlBmEu0KLZNPf0s+qFiNIcfqTCSZITgZ48TyrxbNgW7dCk97EnBvb7gYybLk6EvbbEOVXCJcAGsdlIJYl1Jdf7PErTjUwe2hJp7d+9y3PvtvIISXaLOMB3p/QrpSIRuWVyAvmS/XU4dRbkpT21nkhkG9ezHu8TumvUBeIGHPXkjsyeTTINv/7FnEQP0A/fByrQ6N/OR0SNCZWr8DZYxb67cANIAp95b/g9x/IJuTABDAuPchwTuQuVMtPlG9nPn4o3iYagcNV6pLmlf29YRHvUOiu4U9zRrRbqj+v2G09zT9jqSYT1mbUYsLRdooGkya+IGLqrByeYm3FnAuBtyjmcoahUDIDLpMm6TXDgZuWdT7D9OmlCtU2n4ipPUjANDuVqzQnSGSVPRlY+WkGhsix+bkes+DBnx+e49+yRz8Jv2YN5uQOlljdorlRZ0TTewvU1L13oTVA+lBkokauQFJvBhy+8YUHFfookDfsijIhK5U5A22gX6wNItM8dSlt3pZDeU11Zs1vwcwgD1XSfbCB5I7vDimfeopDhAuVBUOxEhBF2Shr1ErJGiq3SXtZxRnRVWKq75UCS9VECiKky81FWh5ZeAp+rzPPpNdb7keUawMycBQ66hFT5tgf0Ug9VTr2j6AVu93gZCEBcLqKUtkndPo=
 script:
 - mvn clean package -U
-- docker build -t sabinca97/novaslika:2 .
+- docker build -t sabinca97/slikaUporabnik:2 .
 after_success:
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 - docker push "$DOCKER_IMAGE"
