@@ -13,32 +13,21 @@ spec:
         app: uporabniki
     spec:
       containers:
-      - image: sabinca97/novaslika:2
+      - image: sabinca97/slikauporabnik:2
         name: uporabniki
         imagePullPolicy: Always
         env:
         - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
-          value: jdbc:postgresql://ec2-52-1-95-247.compute-1.amazonaws.com:5432/d8gnrm64ecchtp
+          value: jdbc:postgresql://ec2-54-208-233-243.compute-1.amazonaws.com/d373nd6ijuq04e
         - name: KUMULUZEE_DATASOURCES0_USERNAME
-          value: vdjkikowgtbsmb
+          value: axmsufdwudxpwn
         - name: KUMULUZEE_DATASOURCES0_PASSWORD
-          value: 90c2a354319c666def2d0e862c1d558df0a4919d7d4fd4753e95642899343dbc
+          value: 550d2e28f70ccc901a7500c35a50cce651b356d13af4b6862468a80ea257fe9c
         ports:
         - containerPort: 8080
           name: server
           protocol: TCP
-        livenessProbe:
-          httpGet:
-            path: /health/live
-            port: server
-          initialDelaySeconds: 20
-          periodSeconds: 3
-        readinessProbe:
-          httpGet:
-            path: /health/ready
-            port: server
-          initialDelaySeconds: 20
-          periodSeconds: 3
+
 
 
 ---
